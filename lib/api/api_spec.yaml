@@ -1,0 +1,100 @@
+openapi: "3.0.0"
+
+info:
+  title: Project API
+  version: "1.0"
+servers:
+  - url: /
+
+paths:
+  /healthcheck:
+    get:
+      summary: Check server status
+      operationId: lib.api.view_healthcheck.get
+      responses:
+        '200':
+          description: Status ok
+  /prime/{number}:
+    get:
+      summary: Check if number is prime
+      operationId: lib.api.view_prime.get
+      parameters:
+        - name: number
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '400':
+          description: Number range exceeded
+        '200':
+          description: Server checked if is prime
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  is_prime_number:
+                    type: boolean
+  /picture/invert:
+    put:
+      summary: Endpoint do zwrócenia inwersji kolorów obrazka.
+      operationId: lib.api.view_picture.put
+      requestBody:
+        description: Zakładamy typ JPG, rozmiar max 12 MPix, Zakładamy, że dane wejściowe są poprawne.
+        required: true
+        content:
+          image/jpg:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: JPG po inwersji kolorów ?
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+  /token/{username}:
+    get:
+      summary: Get jwt for authorization
+      operationId: lib.api.view_token.get
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: JWT token
+          content:
+            application/json:
+              schema:
+                type: string
+  /time:
+    get:
+      summary: Get current time for authorized user
+      operationId: lib.api.view_time.get
+      security:
+        - jwt: [ ]
+      responses:
+        '200':
+          description: Current time
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: string
+                  time:
+                    type: string
+components:
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      x-bearerInfoFunc: lib.api.auth.decode_token
