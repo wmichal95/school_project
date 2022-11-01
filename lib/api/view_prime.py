@@ -1,6 +1,6 @@
 from http import HTTPStatus
 from lib.config import CONFIG
-from prime_test import prime  # todo to jest niedeterministyczne XD
+from prime_test import prime
 
 
 def get(number):
