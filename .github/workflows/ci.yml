@@ -17,5 +17,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
+      - name: Build app image
+        run: docker compose build
+
       - name: Run unittests
         run: make run_tests
