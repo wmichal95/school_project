@@ -8,6 +8,7 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 
 # install packages
+RUN apt-get -y update
 RUN pip3 install -r requirements.txt
 
 # copy all files to /app
