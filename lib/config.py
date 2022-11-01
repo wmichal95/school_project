@@ -6,6 +6,8 @@ from typing import NamedTuple
 class AppConfig(NamedTuple):
     ENVIRONMENT: str
     SECRET_KEY: str
+    DEBUG: bool = False
+    TESTING: bool = False
     JWT_TOKEN_LIFETIME_SECONDS: int = timedelta(days=10).total_seconds()
     JWT_ALGORITHM: str = 'HS256'
     JWT_ISSUER: str = 'TEST_ISSUER'
@@ -16,17 +18,22 @@ def get_config(environment) -> AppConfig:
     if environment == 'testing':
         return AppConfig(
             ENVIRONMENT='testing',
-            SECRET_KEY='TEST_SECRET'
+            SECRET_KEY='TEST_SECRET',
+            TESTING=True,
+            DEBUG=True
         )
     if environment == 'development':
         return AppConfig(
             ENVIRONMENT='development',
             SECRET_KEY=os.getenv('SECRET_KEY', 'DEV_SECRET'),
+            DEBUG=False
         )
     if environment == 'production':
         return AppConfig(
             ENVIRONMENT='production',
             SECRET_KEY=os.environ['SECRET_KEY'],
+            DEBUG=False,
+            TESTING=False,
             JWT_ISSUER='APPLICATION_ISSUER'
         )
 
