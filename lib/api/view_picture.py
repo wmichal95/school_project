@@ -8,6 +8,6 @@ def put(body):
     inverted_img = ImageChops.invert(image_from_bytes)
 
     img_byte_arr = io.BytesIO()
-    inverted_img.save(img_byte_arr, format="JPEG")  # todo to jakiś problem jak zwraca jpeg zamiast jpg ?
+    inverted_img.save(img_byte_arr, format="JPEG")
 
     return img_byte_arr.getvalue(), HTTPStatus.OK

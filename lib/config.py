@@ -12,6 +12,8 @@ class AppConfig(NamedTuple):
     JWT_ALGORITHM: str = 'HS256'
     JWT_ISSUER: str = 'TEST_ISSUER'
     PRIME_MAX_NUMBER: int = 9223372036854775807
+    USERNAME: str = 'TEST_USERNAME'
+    STRONG_PASSWORD: str = 'STRONG_PASSWORD'
 
 
 def get_config(environment) -> AppConfig:
@@ -34,7 +36,9 @@ def get_config(environment) -> AppConfig:
             SECRET_KEY=os.environ['SECRET_KEY'],
             DEBUG=False,
             TESTING=False,
-            JWT_ISSUER='APPLICATION_ISSUER'
+            JWT_ISSUER='APPLICATION_ISSUER',
+            USERNAME=os.environ['USERNAME'],
+            STRONG_PASSWORD=os.environ['STRONG_PASSWORD']
         )
 
     raise EnvironmentError(f'Unknown enviroment type {environment} in APP_SETTINGS env var')
