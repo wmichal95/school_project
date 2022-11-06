@@ -26,13 +26,13 @@ def decode_token(token):
         return None
 
 
-def encode_token(name):
+def encode_token(username):
     timestamp_now = int(datetime.utcnow().timestamp())
     token = jwt.encode({
         'iss': CONFIG.JWT_ISSUER,
         'iat': timestamp_now,
         "exp": timestamp_now + CONFIG.JWT_TOKEN_LIFETIME_SECONDS,
-        "sub": name
+        "sub": username
     }, CONFIG.SECRET_KEY, algorithm=CONFIG.JWT_ALGORITHM)
 
     return token

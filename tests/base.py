@@ -1,6 +1,7 @@
 from flask_testing import TestCase
 from app import build_app
 from lib.api.auth import encode_token
+from lib.config import CONFIG
 
 
 class BaseTestCase(TestCase):
@@ -17,7 +18,7 @@ class BaseTestCase(TestCase):
 class AuthorizedTestCase(BaseTestCase):
     def setUp(self) -> None:
         super().setUp()
-        self.auth_bearer = 'Bearer ' + encode_token('test_user')
+        self.auth_bearer = 'Bearer ' + encode_token(CONFIG.USERNAME)
 
     def tearDown(self) -> None:
         super().tearDown()

@@ -56,16 +56,22 @@ paths:
               schema:
                 type: string
                 format: binary
-  /token/{username}:
-    get:
+  /token:
+    post:
       summary: Get jwt for authorization
       operationId: lib.api.view_token.get
-      parameters:
-        - name: username
-          in: path
-          required: true
-          schema:
-            type: string
+      requestBody:
+        description: Username and login
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
       responses:
         '200':
           description: JWT token
@@ -73,6 +79,8 @@ paths:
             application/json:
               schema:
                 type: string
+        '403':
+          description: Bad credentials
   /time:
     get:
       summary: Get current time for authorized user
@@ -87,8 +95,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  user:
-                    type: string
                   time:
                     type: string
 components:

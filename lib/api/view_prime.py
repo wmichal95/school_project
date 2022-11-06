@@ -1,6 +1,6 @@
 from http import HTTPStatus
 from lib.config import CONFIG
-from prime_test import prime
+from prime_test import prime  # todo
 
 
 def get(number):

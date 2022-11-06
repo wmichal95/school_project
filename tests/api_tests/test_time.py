@@ -1,9 +1,20 @@
-from tests.base import BaseTestCase
+from tests.base import AuthorizedTestCase
 
 
-class TestTime(BaseTestCase):
-    def test_should_return_200(self):
-        pass
+class TestTime(AuthorizedTestCase):
+    def test_should_return_time(self):
+        response = self._get_time(self.auth_bearer)
 
-    def _get_healthcheck(self):
-        return self.client.get('/healthcheck')
+        self.assert200(response)
+        self.assertIsNotNone(response.json['time'])
+
+    def test_should_return_unauthorized_when_not_token_specified(self):
+        response = self._get_time(None)
+
+        self.assert401(response)
+
+    def _get_time(self, token):
+        return self.client.get(
+            '/time',
+            headers={'Authorization': token}
+        )
