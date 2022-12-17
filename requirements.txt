@@ -75,8 +75,6 @@ packaging==21.3
     # via connexion
 pillow==9.3.0
     # via -r requirements.in
-prime-test==0.2.7
-    # via -r requirements.in
 psutil==5.9.3
     # via locust
 pyjwt==2.6.0
