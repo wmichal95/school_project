@@ -1,6 +1,9 @@
 setup:
   config:
     APP_SETTINGS:
+    USERNAME:
+    STRONG_PASSWORD:
+    SECRET_KEY:
 build:
   docker:
     web: Dockerfile
